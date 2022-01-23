@@ -14,5 +14,7 @@
             "email": "girin.ma@yandex.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
 }
