@@ -6,13 +6,19 @@
     "autoload": {
         "psr-4": {
             "Hexlet\\Code\\": "src/"
-        }
+        },
+        "files": [
+        "src/Engine.php"
+        ]
     },
     "authors": [
         {
             "name": "MaksHaks",
             "email": "girin.ma@yandex.ru"
         }
+    ],
+    "bin": [
+        "bin/gendiff"
     ],
     "require": {
         "docopt/docopt": "^1.0"
