@@ -1,6 +1,7 @@
 {
-    "name": "haks/code",
+    "name": "hexlet/code",
     "description": "Difference Calculator at PHP",
+    "version": "1.0.0",
     "type": "project",
     "license": "MIT",
     "autoload": {
