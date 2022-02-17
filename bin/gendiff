@@ -1,10 +1,13 @@
 #!/usr/bin/env php
 
 <?php
+
 // Вызовы функций из других неймспейсов
-use function Php\Project\Lvl2\Engine\getDifference;
+
+use function Php\Project\Lvl2\Engine\genDiff;
 
 // Авто-загрузка всех зависимостей
+
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
 
@@ -33,14 +36,12 @@ DOC;
 
 $args = Docopt::handle($doc, array('version' => '1.0.0'));
 
-foreach ($args as $k => $v) {
-  echo $k . ': ' . json_encode($v) . PHP_EOL;
-}
+// Запись формата и путей до файлов, полученных из терминала
 
+$firstPath = $args['<firstFile>'];
+$secondPath = $args['<secondFile>'];
+$format = $args['--format'];
 
-$dd = 'lol';
-var_dump($dd);
-// Запись переданных аргументов в переменные
-
-getDifference();
 // Возврат работы функции с переданными аргументами
+
+echo (genDiff($firstPath, $secondPath, $format));
