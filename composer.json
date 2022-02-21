@@ -11,7 +11,10 @@
         "files": [
         "src/Engine.php",
         "src/Parser.php",
-        "src/Render/Render.php"
+        "src/Render/Formatters.php",
+        "src/Render/Stylish.php",
+        "src/Render/Plain.php",
+        "src/Render/Json.php"
         ]
     },
     "authors": [

@@ -2,11 +2,7 @@
 
 <?php
 
-// Вызовы функций из других неймспейсов
-
 use function Php\Project\Lvl2\Engine\genDiff;
-
-// Авто-загрузка всех зависимостей
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -30,8 +26,7 @@ Usage:
 Options:
   -h --help     Show this screen
   -v --version  Show version
-  --format <fmt> Report format [default: stylish]
-
+  --format <fmt>  Report format [default: stylish]
 DOC;
 
 $args = Docopt::handle($doc, array('version' => '1.0.0'));
@@ -41,7 +36,5 @@ $args = Docopt::handle($doc, array('version' => '1.0.0'));
 $firstPath = $args['<firstFile>'];
 $secondPath = $args['<secondFile>'];
 $format = $args['--format'];
-
-// Возврат работы функции с переданными аргументами
 
 echo (genDiff($firstPath, $secondPath, $format));
