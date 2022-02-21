@@ -28,18 +28,15 @@ function findDiff(array $firstFile, array $secondFile): array
             //Ключ - директория
             if (is_array($firstFile[$key]) && is_array($secondFile[$key])) {
                 $acc[] = generateNode($key, "Old", 'Unchanged', '', findDiff($firstFile[$key], $secondFile[$key]));
-                return $acc;
             }
 
             //Ключ -  файл
             if (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
                 if ($firstFile[$key] == $secondFile[$key]) {
                     $acc[] = generateNode($key, "Old", 'Unchanged', $firstFile[$key]);
-                    return $acc;
                 } else {
                     $acc[] = generateNode($key, "Old", 'Changed', $firstFile[$key]);
                     $acc[] = generateNode($key, "Old", 'Added', $secondFile[$key]);
-                    return $acc;
                 }
             }
 
@@ -47,14 +44,12 @@ function findDiff(array $firstFile, array $secondFile): array
             if (is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
                 $acc[] = generateNode($key, "Old", 'Changed', '', normalizeNode($firstFile[$key]));
                 $acc[] = generateNode($key, "Old", 'Added', $secondFile[$key]);
-                return $acc;
             }
 
             //Первый ключ - файл, второй - директория
             if (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
                 $acc[] = generateNode($key, "Old", 'Added', '', normalizeNode($secondFile[$key]));
                 $acc[] = generateNode($key, "Old", 'Changed', $firstFile[$key]);
-                return $acc;
             }
         }
 
@@ -63,12 +58,10 @@ function findDiff(array $firstFile, array $secondFile): array
             //Ключ - директория
             if (is_array($firstFile[$key])) {
                 $acc[] = generateNode($key, "New", 'Changed', '', normalizeNode($firstFile[$key]));
-                return $acc;
             }
             //Ключ -  файл
             if (!is_array($firstFile[$key])) {
                 $acc[] = generateNode($key, "New", 'Changed', $firstFile[$key]);
-                return $acc;
             }
         }
 
@@ -77,14 +70,13 @@ function findDiff(array $firstFile, array $secondFile): array
             //Ключ - директория
             if (is_array($secondFile[$key])) {
                 $acc[] = generateNode($key, "New", 'Added', '', normalizeNode($secondFile[$key]));
-                return $acc;
             }
             //Ключ -  файл
             if (!is_array($secondFile[$key])) {
                 $acc[] = generateNode($key, "New", 'Added', $secondFile[$key]);
-                return $acc;
             }
         }
+        return $acc;
     });
     return $difference;
 }
