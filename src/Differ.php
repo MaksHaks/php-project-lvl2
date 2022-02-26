@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Lvl2\Engine;
+namespace Php\Project\Lvl2\Differ;
 
 use function Php\Project\Lvl2\Parser\parse;
 use function Php\Project\Lvl2\Render\Formatters\render;

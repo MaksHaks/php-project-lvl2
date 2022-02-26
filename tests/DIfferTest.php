@@ -1,12 +1,12 @@
 <?php
 
-namespace Php\Project\Lvl2\Tests\GenDiffTest;
+namespace Php\Project\Lvl2\Tests\DifferTest;
 
 use PHPUnit\Framework\TestCase;
 
-use function Php\Project\Lvl2\Engine\genDiff;
+use function Php\Project\Lvl2\Differ\genDiff;
 
-class GenDiffTest extends TestCase
+class DifferTest extends TestCase
 {
     public function testDiff(): void
     {
