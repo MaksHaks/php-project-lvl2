@@ -32,7 +32,7 @@ function findDiff(array $firstFile, array $secondFile): array
 
             //Ключ -  файл
             if (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
-                if ($firstFile[$key] == $secondFile[$key]) {
+                if ($firstFile[$key] === $secondFile[$key]) {
                     $acc[] = generateNode($key, "Old", 'Unchanged', $firstFile[$key]);
                 } else {
                     $acc[] = generateNode($key, "Old", 'Changed', $firstFile[$key]);
