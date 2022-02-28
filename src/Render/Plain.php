@@ -5,8 +5,7 @@ namespace Php\Project\Lvl2\Render\Plain;
 function plainFormatter(array $diff)
 {
     $formattedString = makePlainFormat($diff);
-    $length = strlen($formattedString);
-    return substr($formattedString, 0, $length);
+    return trim($formattedString);
 }
 
 function makePlainFormat(array $diff, $path = '')
