@@ -20,7 +20,6 @@ function findDiff(array $firstFile, array $secondFile): array
     //Список уникальных ключей одного уровня
     $uniqueKeys = array_unique(array_merge(array_keys($firstFile), array_keys($secondFile)));
     sort($uniqueKeys);
-    var_dump($uniqueKeys);
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_reduce($uniqueKeys, function ($acc, $key) use ($firstFile, $secondFile) {
 
