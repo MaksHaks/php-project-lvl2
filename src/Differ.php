@@ -20,6 +20,7 @@ function findDiff(array $firstFile, array $secondFile): array
     //Список уникальных ключей одного уровня
     $uniqueKeys = array_unique(array_merge(array_keys($firstFile), array_keys($secondFile)));
     sort($uniqueKeys);
+    var_dump($uniqueKeys);
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_reduce($uniqueKeys, function ($acc, $key) use ($firstFile, $secondFile) {
 
@@ -48,8 +49,8 @@ function findDiff(array $firstFile, array $secondFile): array
 
             //Первый ключ - файл, второй - директория
             if (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
-                $acc[] = generateNode($key, "Old", 'Added', '', normalizeNode($secondFile[$key]));
                 $acc[] = generateNode($key, "Old", 'Changed', $firstFile[$key]);
+                $acc[] = generateNode($key, "Old", 'Added', '', normalizeNode($secondFile[$key]));
             }
         }
 
