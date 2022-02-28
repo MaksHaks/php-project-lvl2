@@ -80,6 +80,7 @@ function findDiff(array $firstFile, array $secondFile): array
     });
     return $difference;
 }
+//
 
 //Функция, генерирующая узел в дереве изменений
 function generateNode($key, $type, $action, $value, $children = [])
@@ -95,14 +96,14 @@ function normalizeNode($node)
     $nodeKeys = array_keys($node);
     sort($nodeKeys);
     $normalizedNode = array_map(function ($nodeKey) use ($node) {
-            $type = 'Old';
-            $action = 'Unchanged';
-            $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
-            $key = $nodeKey;
-            $children = (!is_array($node[$nodeKey])) ? [] : normalizeNode($node[$nodeKey]);
-            $nodeContent = ["type" => $type, "action" => $action, "value" => $value, "children" => $children];
-            $node = [$key => $nodeContent];
-            return $node;
+        $type = 'Old';
+        $action = 'Unchanged';
+        $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
+        $key = $nodeKey;
+        $children = (!is_array($node[$nodeKey])) ? [] : normalizeNode($node[$nodeKey]);
+        $nodeContent = ["type" => $type, "action" => $action, "value" => $value, "children" => $children];
+        $node = [$key => $nodeContent];
+        return $node;
     }, $nodeKeys);
     return $normalizedNode;
 }

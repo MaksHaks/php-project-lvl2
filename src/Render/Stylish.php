@@ -52,6 +52,6 @@ function normalizeAction($action)
             $action = '+';
             break;
     }
-    
+
     return $action;
 }
