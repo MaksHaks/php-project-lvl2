@@ -12,15 +12,12 @@ function makePlainFormat(array $diff, $path = '')
 {
     $formatedDiff = array_map(function ($element) use ($path, $diff) {
 
-
-
         if (!array_key_exists("Changed", $element)) {
             //Получение информации об узле
             $key = array_key_first($element);
             $children = $element[$key]["children"];
             $value = ($children === []) ? valueFormatter($element[$key]["value"]) : '[complex value]';
             $action = $element[$key]["action"];
-
 
             //Добавление нового элемента
             if ($action === "Added") {
