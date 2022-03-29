@@ -124,5 +124,5 @@ function normalizeValue($value)
     if ($value === null) {
         $value2 = 'null';
     }
-    return $value;
+    return $value2;
 }
