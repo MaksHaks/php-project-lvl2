@@ -15,7 +15,6 @@ function makePlainFormat(array $diff, $path = '')
 
 
         if (!array_key_exists("Changed", $element)) {
-
             //Получение информации об узле
             $key = array_key_first($element);
             $children = $element[$key]["children"];
