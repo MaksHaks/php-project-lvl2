@@ -114,15 +114,14 @@ function normalizeNode($node)
 //Функция, обрабатывающие значения bool и null
 function normalizeValue($value)
 {
-    $value2 = '';
     if ($value === true) {
-        $value2 = 'true';
+        $value = 'true';
     }
     if ($value === false) {
-        $value2 = 'false';
+        $value = 'false';
     }
     if ($value === null) {
-        $value2 = 'null';
+        $value = 'null';
     }
-    return $value2;
+    return $value;
 }
