@@ -89,7 +89,7 @@ function findDiff(array $firstFile, array $secondFile): array
 //
 
 //Функция, генерирующая узел в дереве изменений
-function generateNode(string $key, string $action, $value, array $children = [])
+function generateNode(string $key, string $action, $value, array $children = []): array
 {
     $nodeContent = ["action" => $action, "value" => normalizeValue($value), "children" => $children];
     $node = [$key => $nodeContent];
@@ -117,15 +117,13 @@ function normalizeNode($node)
 //Функция, обрабатывающие значения bool и null
 function normalizeValue($value)
 {
-    $normalizedValue = $value;
     if ($value === true) {
-        $normalizedValue = 'true';
-    }
-    if ($value === false) {
-        $normalizedValue = 'false';
-    }
-    if ($value === null) {
-        $normalizedValue = 'null';
-    }
-    return $normalizedValue;
+        return 'true';
+    } elseif ($value === false) {
+        return 'false';
+    } elseif ($value === null) {
+        return 'null';
+    } else {
+        return $value;
+    };
 }
