@@ -30,8 +30,10 @@ function findDiff(array $firstFile, array $secondFile): array
             //Ключ - директория
             if (is_array($firstFile[$key]) && is_array($secondFile[$key])) {
                 $node = generateNode($key, 'Unchanged', '', findDiff($firstFile[$key], $secondFile[$key]));
-            } elseif (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
-                //Ключ -  файл
+            }
+
+            //Ключ -  файл
+            if (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
                 if ($firstFile[$key] === $secondFile[$key]) {
                     $node = generateNode($key, 'Unchanged', $firstFile[$key]);
                 } else {
@@ -39,13 +41,17 @@ function findDiff(array $firstFile, array $secondFile): array
                     $addedItem = generateNode($key, 'Added', $secondFile[$key]);
                     $node = ["Changed" => $changedItem, "Added" => $addedItem];
                 }
-            } elseif (is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
-                //Первый ключ - директория, второй - файл
+            }
+
+            //Первый ключ - директория, второй - файл
+            if (is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
                 $changedItem =  generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
                 $addedItem = generateNode($key, 'Added', $secondFile[$key]);
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
-            } elseif (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
+            }
+
             //Первый ключ - файл, второй - директория
+            if (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
                 $changedItem =  generateNode($key, 'Changed', $firstFile[$key]);
                 $addedItem = generateNode($key, 'Added', '', normalizeNode($secondFile[$key]));
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
@@ -111,14 +117,16 @@ function normalizeNode($node)
 //Функция, обрабатывающие значения bool и null
 function normalizeValue($value)
 {
+    $normalizedValue = $value;
+    
     if ($value === true) {
-        $value = 'true';
+        $normalizedValue = 'true';
     }
     if ($value === false) {
-        $value = 'false';
+        $normalizedValue = 'false';
     }
     if ($value === null) {
-        $value = 'null';
+        $normalizedValue = 'null';
     }
-    return $value;
+    return $normalizedValue;
 }
