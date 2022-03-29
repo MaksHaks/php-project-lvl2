@@ -6,7 +6,7 @@ use function Php\Project\Lvl2\Render\Stylish\stylishFormatter;
 use function Php\Project\Lvl2\Render\Plain\plainFormatter;
 use function Php\Project\Lvl2\Render\Json\jsonFormatter;
 
-//Функция, форматирующая полученные значения
+//Функция, форматирующая полученные значения.
 
 function render($diff, $format)
 {
