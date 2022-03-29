@@ -118,7 +118,6 @@ function normalizeNode($node)
 function normalizeValue($value)
 {
     $normalizedValue = $value;
-    
     if ($value === true) {
         $normalizedValue = 'true';
     }
