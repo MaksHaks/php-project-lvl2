@@ -8,7 +8,7 @@ function plainFormatter(array $diff)
     return trim($formattedString);
 }
 
-function makePlainFormat(array $diff, $path = '')
+function makePlainFormat(array $diff, string $path = '')
 {
     $formatedDiff = array_map(function ($element) use ($path, $diff) {
 

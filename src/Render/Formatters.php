@@ -2,6 +2,8 @@
 
 namespace Php\Project\Lvl2\Render\Formatters;
 
+use Exception;
+
 use function Php\Project\Lvl2\Render\Stylish\stylishFormatter;
 use function Php\Project\Lvl2\Render\Plain\plainFormatter;
 use function Php\Project\Lvl2\Render\Json\jsonFormatter;
@@ -12,13 +14,16 @@ function render(array $diff, string $format)
 {
     switch ($format) {
         case 'stylish':
-            return stylishFormatter($diff);
+            $finalFormat = stylishFormatter($diff);
             break;
         case 'plain':
-            return plainFormatter($diff);
+            $finalFormat = plainFormatter($diff);
             break;
         case 'json':
-            return jsonFormatter($diff);
+            $finalFormat = jsonFormatter($diff);
             break;
+        default:
+            throw new Exception('There are no such format');
     }
+    return $finalFormat;
 }
