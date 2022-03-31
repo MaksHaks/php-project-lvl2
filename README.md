@@ -5,6 +5,7 @@
 <a href="https://codeclimate.com/github/MaksHaks/php-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/6cdcdc1e15d54d5e0447/test_coverage" /></a>
 
 [![asciicast](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua.svg)](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua)
+[![asciicast](https://asciinema.org/a/dCHEytGRirv4xvBXguGIejBYl.svg)](https://asciinema.org/a/dCHEytGRirv4xvBXguGIejBYl)
 
 
 ## Description
@@ -20,8 +21,12 @@ make install
 
 ## Calculate Differences
 
+Calculate difference between file1 and file2:
 ```sh
-./bin/gendiff --format <format> <file1> <file2> // calculate difference between file1 and file2
-./bin/gendiff -h // for more information
+./bin/gendiff --format <format> <file1> <file2> 
+```
 
+For more information
+```sh
+./bin/gendiff -h // 
 ```
