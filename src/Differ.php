@@ -24,7 +24,7 @@ function findDiff(array $firstFile, array $secondFile): array
 
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
-
+        $node = 'd';
         //Ключ присутствует в обоих файлах
         if (array_key_exists($key, $firstFile) && array_key_exists($key, $secondFile)) {
             //Ключ - директория
@@ -77,8 +77,6 @@ function findDiff(array $firstFile, array $secondFile): array
             if (!is_array($secondFile[$key])) {
                 $node = generateNode($key, 'Added', $secondFile[$key]);
             }
-        } else {
-            $node = 'r';
         }
         return $node;
     }, $sortedUniqueKeys);
