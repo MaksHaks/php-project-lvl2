@@ -10,7 +10,7 @@ function plainFormatter(array $diff)
 
 function makePlainFormat(array $diff, string $path = '')
 {
-    $formatedDiff = array_map(function ($element) use ($path, $diff) {
+    $formatedDiff = array_map(function ($element) use ($path) {
 
         if (!array_key_exists("Changed", $element)) {
             //Получение информации об узле
@@ -27,8 +27,8 @@ function makePlainFormat(array $diff, string $path = '')
                 $finalStirng = "Property '{$path}{$key}' was removed\n";
             } else {
                 //Рекурсивная обработка директорий
-                $path = "{$path}{$key}.";
-                $finalStirng = makePlainFormat($children, $path);
+                $newPath = "{$path}{$key}.";
+                $finalStirng = makePlainFormat($children, $newPath);
             }
         } else {
             //Обновление существующего элемента
@@ -46,10 +46,12 @@ function makePlainFormat(array $diff, string $path = '')
 }
 
 
-function valueFormatter($value)
+function valueFormatter(mixed $value)
 {
     if ($value !== 'false' && $value !== 'true' && $value !== 'null' && !is_numeric($value)) {
-        $value = "'{$value}'";
+        $newValue = "'{$value}'";
+    } else {
+        $newValue = $value;
     }
-    return $value;
+    return $newValue;
 }
