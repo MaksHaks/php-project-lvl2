@@ -6,14 +6,12 @@ use Symfony\Component\Yaml\Yaml;
 
 // Функция, принимающая на вход путь к файлу и возвращающая массив с его содержимым
 
-function parse(string $path): array
+function parse(string $path)
 {
     if (substr($path, -4) === "json") {
         $fileContent = json_decode(file_get_contents($path), true);
         return $fileContent;
-    }
-
-    if (substr($path, -4) === "yaml" || substr($path, -3) === "yml") {
+    } else {
         $fileContent = Yaml::parseFile($path);
         return $fileContent;
     }
