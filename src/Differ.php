@@ -96,23 +96,23 @@ function generateNode(string $key, string $action, mixed $value, array $children
 }
 
 //Функция, нормализующая формат неизмененных директорий
-function normalizeNode($node)
+function normalizeNode(array $node)
 {
     $nodeKeys = sort(array_keys($node), fn (string $left, string $right) => strcmp($left, $right));
-    $normalizedNode = array_map(function ($nodeKey) use ($node) {
+    $finalNode = array_map(function ($nodeKey) use ($node) {
         $action = 'Unchanged';
         $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
         $key = $nodeKey;
         $children = (!is_array($node[$nodeKey])) ? [] : normalizeNode($node[$nodeKey]);
         $nodeContent = ["action" => $action, "value" => $value, "children" => $children];
-        $node = [$key => $nodeContent];
-        return $node;
+        $normalizedNode = [$key => $nodeContent];
+        return $normalizedNode;
     }, $nodeKeys);
-    return $normalizedNode;
+    return $finalNode;
 }
 
 //Функция, обрабатывающие значения bool и null
-function normalizeValue($value)
+function normalizeValue(mixed $value)
 {
     if ($value === true) {
         return 'true';
