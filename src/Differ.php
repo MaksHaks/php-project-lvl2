@@ -72,7 +72,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $node = generateNode($key, 'Added', $secondFile[$key]);
             }
         } else {
-            $node = '';
+            $node = null;
         }
         return $node;
     }, $sortedUniqueKeys);
