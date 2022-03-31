@@ -26,14 +26,13 @@ function findDiff(array $firstFile, array $secondFile): array
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
 
 //Ключ присутствует в обоих файлах
+
         if (array_key_exists($key, $firstFile) && array_key_exists($key, $secondFile)) {
             //Ключ - директория
             if (is_array($firstFile[$key]) && is_array($secondFile[$key])) {
                 $node = generateNode($key, 'Unchanged', '', findDiff($firstFile[$key], $secondFile[$key]));
-            }
-
-            //Ключ -  файл
-            if (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
+            } elseif (!is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
+                //Ключ -  файл
                 if ($firstFile[$key] === $secondFile[$key]) {
                     $node = generateNode($key, 'Unchanged', $firstFile[$key]);
                 } else {
@@ -41,29 +40,25 @@ function findDiff(array $firstFile, array $secondFile): array
                     $addedItem = generateNode($key, 'Added', $secondFile[$key]);
                     $node = ["Changed" => $changedItem, "Added" => $addedItem];
                 }
-            }
-
-            //Первый ключ - директория, второй - файл
-            if (is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
+            } elseif (is_array($firstFile[$key]) && !is_array($secondFile[$key])) {
+                //Первый ключ - директория, второй - файл
                 $changedItem =  generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
                 $addedItem = generateNode($key, 'Added', $secondFile[$key]);
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
-            }
-
-            //Первый ключ - файл, второй - директория
-            if (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
+            } elseif (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
+                //Первый ключ - файл, второй - директория
                 $changedItem =  generateNode($key, 'Changed', $firstFile[$key]);
                 $addedItem = generateNode($key, 'Added', '', normalizeNode($secondFile[$key]));
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
             }
         } elseif (array_key_exists($key, $firstFile) && !array_key_exists($key, $secondFile)) {
 //Ключ присутствует только в 1-м файле
+
             //Ключ - директория
             if (is_array($firstFile[$key])) {
                 $node = generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
-            }
-            //Ключ -  файл
-            if (!is_array($firstFile[$key])) {
+            } else {
+                //Ключ -  файл
                 $node = generateNode($key, 'Changed', $firstFile[$key]);
             }
         } elseif (array_key_exists($key, $secondFile) && !array_key_exists($key, $firstFile)) {
@@ -72,9 +67,8 @@ function findDiff(array $firstFile, array $secondFile): array
             //Ключ - директория
             if (is_array($secondFile[$key])) {
                 $node = generateNode($key, 'Added', '', normalizeNode($secondFile[$key]));
-            }
-            //Ключ -  файл
-            if (!is_array($secondFile[$key])) {
+            } else {
+                //Ключ -  файл
                 $node = generateNode($key, 'Added', $secondFile[$key]);
             }
         }
@@ -85,6 +79,9 @@ function findDiff(array $firstFile, array $secondFile): array
 }
 
 //Функция, проверяющая узел
+function checkNode(array $firstFile, array $secondFile, string $key, string $flag)
+{
+}
 
 //Функция, генерирующая узел в дереве изменений
 function generateNode(string $key, string $action, mixed $value, array $children = []): array
@@ -118,20 +115,6 @@ function normalizeValue(mixed $value)
     } elseif ($value === false) {
         return 'false';
     } elseif ($value === null) {
-        return 'null';
-    } elseif ($value === 's') {
-        return 'null';
-    } elseif ($value === '2') {
-        return 'null';
-    } elseif ($value === '3s') {
-        return 'null';
-    } elseif ($value === 's5') {
-        return 'null';
-    } elseif ($value === 's25') {
-        return 'null';
-    } elseif ($value === '44s') {
-        return 'null';
-    } elseif ($value === '2s') {
         return 'null';
     } else {
         return $value;
