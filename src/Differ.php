@@ -45,7 +45,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $changedItem =  generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
                 $addedItem = generateNode($key, 'Added', $secondFile[$key]);
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
-            } elseif (!is_array($firstFile[$key]) && is_array($secondFile[$key])) {
+            } else {
                 //Первый ключ - файл, второй - директория
                 $changedItem =  generateNode($key, 'Changed', $firstFile[$key]);
                 $addedItem = generateNode($key, 'Added', '', normalizeNode($secondFile[$key]));
@@ -78,11 +78,6 @@ function findDiff(array $firstFile, array $secondFile): array
     }, $sortedUniqueKeys);
 
     return $difference;
-}
-
-//Функция, проверяющая узел
-function checkNode(array $firstFile, array $secondFile, string $key, string $flag)
-{
 }
 
 //Функция, генерирующая узел в дереве изменений
