@@ -4,8 +4,8 @@ namespace Differ\Differ;
 
 use function Php\Project\Lvl2\Parser\parse;
 use function Php\Project\Lvl2\Render\Formatters\render;
+use function Functional\sort;
 
-//use function Functional\sort;
 // Функция, генерирующая форматированное отличие 2-х файлов
 function genDiff(string $firstPath, string $secondPath, string $format = "stylish"): string
 {
@@ -20,8 +20,8 @@ function findDiff(array $firstFile, array $secondFile): array
 {
     //Список уникальных ключей одного уровня
     $uniqueKeys = array_unique(array_merge(array_keys($firstFile), array_keys($secondFile)));
-    //sort($uniqueKeys, fn ($left, $right) => strcmp($left, $right), true);
-    sort($uniqueKeys);
+    $uniqueKeys = sort($uniqueKeys, fn (string $left, string $right) => strcmp($left, $right));
+
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
 
@@ -100,8 +100,7 @@ function generateNode(string $key, string $action, mixed $value, array $children
 function normalizeNode($node)
 {
     $nodeKeys = array_keys($node);
-    //sort($nodeKeys, fn ($left, $right) => strcmp($left, $right), true);
-    sort($nodeKeys);
+    $nodeKeys = sort($nodeKeys, fn (string $left, string $right) => strcmp($left, $right));
     $normalizedNode = array_map(function ($nodeKey) use ($node) {
         $action = 'Unchanged';
         $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
