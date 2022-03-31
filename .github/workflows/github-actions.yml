@@ -31,3 +31,12 @@ jobs:
       - name: Run tests
         # Run Linter
         run: make test
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.6.0
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: bec83be2909fa2120d3d83b13007a1657d5fcaaf42a26281420f7b5c74028e55
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
