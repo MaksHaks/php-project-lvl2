@@ -20,7 +20,7 @@ function findDiff(array $firstFile, array $secondFile): array
 {
     //Список уникальных ключей одного уровня
     $uniqueKeys = array_unique(array_merge(array_keys($firstFile), array_keys($secondFile)));
-    $uniqueKeys = sort($uniqueKeys, fn (string $left, string $right) => strcmp($left, $right));
+    $sortedUniqueKeys = sort($uniqueKeys, fn (string $left, string $right) => strcmp($left, $right));
 
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
@@ -82,11 +82,10 @@ function findDiff(array $firstFile, array $secondFile): array
             }
         }
         return $node;
-    }, $uniqueKeys);
+    }, $sortedUniqueKeys);
 
     return $difference;
 }
-//
 
 //Функция, генерирующая узел в дереве изменений
 function generateNode(string $key, string $action, mixed $value, array $children = []): array
@@ -99,8 +98,7 @@ function generateNode(string $key, string $action, mixed $value, array $children
 //Функция, нормализующая формат неизмененных директорий
 function normalizeNode($node)
 {
-    $nodeKeys = array_keys($node);
-    $nodeKeys = sort($nodeKeys, fn (string $left, string $right) => strcmp($left, $right));
+    $nodeKeys = sort(array_keys($node), fn (string $left, string $right) => strcmp($left, $right));
     $normalizedNode = array_map(function ($nodeKey) use ($node) {
         $action = 'Unchanged';
         $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
