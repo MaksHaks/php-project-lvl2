@@ -9,3 +9,5 @@ test:
 	vendor/bin/phpunit tests
 run:
 	./bin/gendiff --format json tests/fixtures/file1.json tests/fixtures/file2.json
+test-coverage:
+	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
