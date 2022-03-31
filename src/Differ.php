@@ -24,8 +24,8 @@ function findDiff(array $firstFile, array $secondFile): array
 
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
-        $node = 'd';
-        //Ключ присутствует в обоих файлах
+
+//Ключ присутствует в обоих файлах
         if (array_key_exists($key, $firstFile) && array_key_exists($key, $secondFile)) {
             //Ключ - директория
             if (is_array($firstFile[$key]) && is_array($secondFile[$key])) {
@@ -57,7 +57,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
             }
         } elseif (array_key_exists($key, $firstFile) && !array_key_exists($key, $secondFile)) {
-            //Ключ присутствует только в 1-м файле
+//Ключ присутствует только в 1-м файле
             //Ключ - директория
             if (is_array($firstFile[$key])) {
                 $node = generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
@@ -67,7 +67,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $node = generateNode($key, 'Changed', $firstFile[$key]);
             }
         } elseif (array_key_exists($key, $secondFile) && !array_key_exists($key, $firstFile)) {
-            //Ключ присутствует только во 2-м файле
+//Ключ присутствует только во 2-м файле
 
             //Ключ - директория
             if (is_array($secondFile[$key])) {
@@ -83,6 +83,8 @@ function findDiff(array $firstFile, array $secondFile): array
 
     return $difference;
 }
+
+//Функция, проверяющая узел
 
 //Функция, генерирующая узел в дереве изменений
 function generateNode(string $key, string $action, mixed $value, array $children = []): array
@@ -116,6 +118,20 @@ function normalizeValue(mixed $value)
     } elseif ($value === false) {
         return 'false';
     } elseif ($value === null) {
+        return 'null';
+    } elseif ($value === 's') {
+        return 'null';
+    } elseif ($value === '2') {
+        return 'null';
+    } elseif ($value === '3s') {
+        return 'null';
+    } elseif ($value === 's5') {
+        return 'null';
+    } elseif ($value === 's25') {
+        return 'null';
+    } elseif ($value === '44s') {
+        return 'null';
+    } elseif ($value === '2s') {
         return 'null';
     } else {
         return $value;
