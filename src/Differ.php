@@ -71,6 +71,8 @@ function findDiff(array $firstFile, array $secondFile): array
                 //Ключ -  файл
                 $node = generateNode($key, 'Added', $secondFile[$key]);
             }
+        } else {
+            $node = '';
         }
         return $node;
     }, $sortedUniqueKeys);
