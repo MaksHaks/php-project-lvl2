@@ -28,5 +28,5 @@ Calculate difference between file1 and file2:
 
 For more information
 ```sh
-./bin/gendiff -h // 
+./bin/gendiff -h
 ```
