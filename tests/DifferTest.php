@@ -21,5 +21,11 @@ class DifferTest extends TestCase
         $secondFile = __DIR__ . "/fixtures/file2.yaml";
         $result = genDiff($firstFile, $secondFile);
         $this->assertEquals($expected, $result);
+
+        $expected = file_get_contents(__DIR__ . "/fixtures/expectedJson.txt");
+        $firstFile = __DIR__ . "/fixtures/file1.yaml";
+        $secondFile = __DIR__ . "/fixtures/file2.yaml";
+        $result = genDiff($firstFile, $secondFile, 'json');
+        $this->assertEquals($expected, $result);
     }
 }
