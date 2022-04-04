@@ -1,5 +1,4 @@
 /vendor/
-/composer.lock
 /.vscode
 /build
-phpunit.result.cache
+.phpunit.result.cache
