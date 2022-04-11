@@ -4,9 +4,6 @@
 <a href="https://codeclimate.com/github/MaksHaks/php-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/6cdcdc1e15d54d5e0447/maintainability" /></a>
 <a href="https://codeclimate.com/github/MaksHaks/php-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/6cdcdc1e15d54d5e0447/test_coverage" /></a>
 
-[![asciicast](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua.svg)](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua)
-[![asciicast](https://asciinema.org/a/N53eakZkGFGtSdwux4F1BG6iS.svg)](https://asciinema.org/a/N53eakZkGFGtSdwux4F1BG6iS)
-
 
 ## Description
 
@@ -30,3 +27,6 @@ For more information
 ```sh
 ./bin/gendiff -h
 ```
+
+[![asciicast](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua.svg)](https://asciinema.org/a/rNgJWOuMRq3JpJlb8SGQuSSua)
+[![asciicast](https://asciinema.org/a/N53eakZkGFGtSdwux4F1BG6iS.svg)](https://asciinema.org/a/N53eakZkGFGtSdwux4F1BG6iS)
