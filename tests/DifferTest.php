@@ -11,8 +11,9 @@ class DifferTest extends TestCase
     /**
      * @dataProvider diffProvider
      */
-    public function testDiff($expected, $result): void
+    public function testDiff($expected, $options): void
     {
+        $result = genDiff(...$options);
         $this->assertEquals($expected, $result);
     }
 
@@ -28,10 +29,10 @@ class DifferTest extends TestCase
         $firstJson = __DIR__ . "/fixtures/file1.json";
         $secondJson = __DIR__ . "/fixtures/file2.json";
 
-        $result1 = genDiff($firstYaml, $secondYaml, 'plain');
-        $result2 = genDiff($firstYaml, $secondYaml);
-        $result3 = genDiff($firstYaml, $secondYaml, 'json');
-        $result4 = genDiff($firstJson, $secondJson, 'json');
+        $result1 = [$firstYaml, $secondYaml, 'plain'];
+        $result2 = [$firstYaml, $secondYaml];
+        $result3 = [$firstYaml, $secondYaml, 'json'];
+        $result4 = [$firstJson, $secondJson, 'json'];
 
         return  [
             [$expected1, $result1], [$expected2, $result2], [$expected3, $result3], [$expected4, $result4]
