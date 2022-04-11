@@ -3,7 +3,7 @@
 namespace Differ\Differ;
 
 use function Php\Project\Lvl2\Parser\parse;
-use function Php\Project\Lvl2\Render\Formatters\render;
+use function Php\Project\Lvl2\Formatters\render;
 use function Functional\sort;
 
 // Функция, генерирующая форматированное отличие 2-х файлов
@@ -25,7 +25,7 @@ function findDiff(array $firstFile, array $secondFile): array
     //Рекурсивное построение дерева отличий в 2-х файлах
     $difference = array_map(function ($key) use ($firstFile, $secondFile) {
 
-//Ключ присутствует в обоих файлах
+        //Ключ присутствует в обоих файлах
 
         if (array_key_exists($key, $firstFile) && array_key_exists($key, $secondFile)) {
             //Ключ - директория
@@ -52,7 +52,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $node = ["Changed" => $changedItem, "Added" => $addedItem];
             }
         } elseif (array_key_exists($key, $firstFile)) {
-//Ключ присутствует только в 1-м файле
+            //Ключ присутствует только в 1-м файле
 
             //Ключ - директория
             if (is_array($firstFile[$key])) {
@@ -62,7 +62,7 @@ function findDiff(array $firstFile, array $secondFile): array
                 $node = generateNode($key, 'Changed', $firstFile[$key]);
             }
         } else {
-//Ключ присутствует только во 2-м файле
+            //Ключ присутствует только во 2-м файле
 
             //Ключ - директория
             if (is_array($secondFile[$key])) {
@@ -81,7 +81,7 @@ function findDiff(array $firstFile, array $secondFile): array
 //Функция, генерирующая узел в дереве изменений
 function generateNode(string $key, string $action, mixed $value, array $children = []): array
 {
-    $nodeContent = ["action" => $action, "value" => normalizeValue($value), "children" => $children];
+    $nodeContent = ["action" => $action, "value" => $value, "children" => $children];
     $node = [$key => $nodeContent];
     return $node;
 }
@@ -92,7 +92,7 @@ function normalizeNode(array $node)
     $nodeKeys = sort(array_keys($node), fn (string $left, string $right) => strcmp($left, $right));
     $finalNode = array_map(function ($nodeKey) use ($node) {
         $action = 'Unchanged';
-        $value = (!is_array($node[$nodeKey])) ? normalizeValue($node[$nodeKey]) : '';
+        $value = (!is_array($node[$nodeKey])) ? $node[$nodeKey] : '';
         $key = $nodeKey;
         $children = (!is_array($node[$nodeKey])) ? [] : normalizeNode($node[$nodeKey]);
         $nodeContent = ["action" => $action, "value" => $value, "children" => $children];
@@ -100,18 +100,4 @@ function normalizeNode(array $node)
         return $normalizedNode;
     }, $nodeKeys);
     return $finalNode;
-}
-
-//Функция, обрабатывающие значения bool и null
-function normalizeValue(mixed $value)
-{
-    if ($value === true) {
-        return 'true';
-    } elseif ($value === false) {
-        return 'false';
-    } elseif ($value === null) {
-        return 'null';
-    } else {
-        return $value;
-    };
 }

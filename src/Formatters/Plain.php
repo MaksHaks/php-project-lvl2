@@ -1,8 +1,8 @@
 <?php
 
-namespace Php\Project\Lvl2\Render\Plain;
+namespace Php\Project\Lvl2\Formatters\Plain;
 
-function plainFormatter(array $diff)
+function formatPlain(array $diff)
 {
     $formattedString = makePlainFormat($diff);
     return trim($formattedString);
@@ -16,7 +16,7 @@ function makePlainFormat(array $diff, string $path = '')
             //Получение информации об узле
             $key = array_key_first($element);
             $children = $element[$key]["children"];
-            $value = ($children === []) ? valueFormatter($element[$key]["value"]) : '[complex value]';
+            $value = ($children === []) ? formatValue($element[$key]["value"]) : '[complex value]';
             $action = $element[$key]["action"];
 
             //Добавление нового элемента
@@ -35,9 +35,9 @@ function makePlainFormat(array $diff, string $path = '')
             $key = array_key_first($element['Changed']);
             $oldChildren = $element['Changed'][$key]['children'];
             $newChildren = $element['Added'][$key]['children'];
-            $newValue = ($newChildren === []) ? valueFormatter($element['Added'][$key]['value']) : '[complex value]';
-            $oldValue = ($oldChildren === []) ? valueFormatter($element['Changed'][$key]['value']) : '[complex value]';
-
+            $newValue = ($newChildren === []) ? formatValue($element['Added'][$key]['value']) : '[complex value]';
+            $oldValue = ($oldChildren === []) ? formatValue($element['Changed'][$key]['value']) : '[complex value]';
+            
             $finalStirng = "Property '{$path}{$key}' was updated. From {$oldValue} to {$newValue}\n";
         }
         return $finalStirng;
@@ -46,8 +46,9 @@ function makePlainFormat(array $diff, string $path = '')
 }
 
 
-function valueFormatter(mixed $value)
+function formatValue(mixed $value)
 {
+    $value = normalizeValue($value);
     if ($value !== 'false' && $value !== 'true' && $value !== 'null' && !is_numeric($value)) {
         $newValue = "'{$value}'";
     } else {
@@ -55,3 +56,17 @@ function valueFormatter(mixed $value)
     }
     return $newValue;
 }
+
+function normalizeValue(mixed $value)
+{
+    if ($value === true) {
+        return 'true';
+    } elseif ($value === false) {
+        return 'false';
+    } elseif ($value === null) {
+        return 'null';
+    } else {
+        return $value;
+    };
+}
+
