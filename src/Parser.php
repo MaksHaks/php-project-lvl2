@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Lvl2\Parser;
+namespace Differ\Parser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml;
@@ -27,17 +27,14 @@ function readFile(string $path)
     if (!file_exists($path)) {
         throw new Exception("Invalid file path: {$path}");
     }
-
     $fileContent = file_get_contents($path);
-
     if ($fileContent === false) {
         throw new Exception("Can't read file: {$path}");
     }
-
     return $fileContent;
 }
 
-function getExtension($path)
+function getExtension(string $path)
 {
     return pathinfo($path, PATHINFO_EXTENSION);
 }

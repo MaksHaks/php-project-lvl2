@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Lvl2\Formatters\Plain;
+namespace Differ\Formatters\Plain;
 
 function formatPlain(array $diff)
 {
@@ -13,25 +13,20 @@ function makePlainFormat(array $diff, string $path = '')
     $formatedDiff = array_map(function ($element) use ($path) {
 
         if (!array_key_exists("Changed", $element)) {
-            //Получение информации об узле
             $key = array_key_first($element);
             $children = $element[$key]["children"];
             $value = ($children === []) ? formatValue($element[$key]["value"]) : '[complex value]';
             $action = $element[$key]["action"];
 
-            //Добавление нового элемента
             if ($action === "Added") {
                 $finalStirng = "Property '{$path}{$key}' was added with value: {$value}\n";
             } elseif ($action === "Changed") {
-                //Удаление элемента
                 $finalStirng = "Property '{$path}{$key}' was removed\n";
             } else {
-                //Рекурсивная обработка директорий
                 $newPath = "{$path}{$key}.";
                 $finalStirng = makePlainFormat($children, $newPath);
             }
         } else {
-            //Обновление существующего элемента
             $key = array_key_first($element['Changed']);
             $oldChildren = $element['Changed'][$key]['children'];
             $newChildren = $element['Added'][$key]['children'];
@@ -47,11 +42,11 @@ function makePlainFormat(array $diff, string $path = '')
 
 function formatValue(mixed $value)
 {
-    $value = normalizeValue($value);
-    if ($value !== 'false' && $value !== 'true' && $value !== 'null' && !is_numeric($value)) {
+    $normValue = normalizeValue($value);
+    if ($normValue !== 'false' && $normValue !== 'true' && $normValue !== 'null' && !is_numeric($value)) {
         $newValue = "'{$value}'";
     } else {
-        $newValue = $value;
+        $newValue = $normValue;
     }
     return $newValue;
 }

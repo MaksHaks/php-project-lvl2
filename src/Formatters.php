@@ -1,27 +1,22 @@
 <?php
 
-namespace Php\Project\Lvl2\Formatters;
+namespace Differ\Formatters;
 
 use Exception;
 
-use function Php\Project\Lvl2\Formatters\Stylish\formatStylish;
-use function Php\Project\Lvl2\Formatters\Plain\formatPlain;
-use function Php\Project\Lvl2\Formatters\Json\formatJson;
-
-//Функция, форматирующая полученные значения.
+use function Differ\Formatters\Stylish\formatStylish;
+use function Differ\Formatters\Plain\formatPlain;
+use function Differ\Formatters\Json\formatJson;
 
 function render(array $diff, string $format)
 {
     switch ($format) {
         case 'stylish':
             return formatStylish($diff);
-            break;
         case 'plain':
             return formatPlain($diff);
-            break;
         case 'json':
             return formatJson($diff);
-            break;
         default:
             throw new Exception('There are no such format');
     }
