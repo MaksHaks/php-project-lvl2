@@ -37,7 +37,6 @@ function makePlainFormat(array $diff, string $path = '')
             $newChildren = $element['Added'][$key]['children'];
             $newValue = ($newChildren === []) ? formatValue($element['Added'][$key]['value']) : '[complex value]';
             $oldValue = ($oldChildren === []) ? formatValue($element['Changed'][$key]['value']) : '[complex value]';
-            
             $finalStirng = "Property '{$path}{$key}' was updated. From {$oldValue} to {$newValue}\n";
         }
         return $finalStirng;
@@ -69,4 +68,3 @@ function normalizeValue(mixed $value)
         return $value;
     };
 }
-
