@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Plain;
 
-function formatPlain(array $diff)
+function render(array $diff)
 {
     $formattedString = makePlainFormat($diff);
     return trim($formattedString);

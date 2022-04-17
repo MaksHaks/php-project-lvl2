@@ -5,20 +5,17 @@ namespace Differ\Parser;
 use Exception;
 use Symfony\Component\Yaml\Yaml;
 
-function parse(string $path): array
+function parse(string $content, string $type): array
 {
-    $fileContent = readFile($path);
-    $extension = getExtension($path);
-
-    switch ($extension) {
+    switch ($type) {
         case "json":
-            return json_decode($fileContent, true, 512, JSON_THROW_ON_ERROR);
+            return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         case "yaml":
-            return Yaml::parse($fileContent);
+            return Yaml::parse($content);
         case "yml":
-            return Yaml::parse($fileContent);
+            return Yaml::parse($content);
         default:
-            throw new Exception("Format {$extension} not supported.");
+            throw new Exception("Format {$type} not supported.");
     }
 }
 

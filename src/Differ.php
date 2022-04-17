@@ -3,13 +3,15 @@
 namespace Differ\Differ;
 
 use function Differ\Parser\parse;
+use function Differ\Parser\readFile;
+use function Differ\Parser\getExtension;
 use function Differ\Formatters\render;
 use function Functional\sort;
 
 function genDiff(string $firstPath, string $secondPath, string $format = "stylish"): string
 {
-    $firstFileContent = parse($firstPath);
-    $secondFileContent = parse($secondPath);
+    $firstFileContent = parse(readFile($firstPath), getExtension($firstPath));
+    $secondFileContent = parse(readFile($secondPath), getExtension($secondPath));
     $diff = findDiff($firstFileContent, $secondFileContent);
     return render($diff, $format);
 }
