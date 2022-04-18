@@ -1,50 +1,44 @@
 [
     {
         "Changed": {
-            "test1": {
-                "action": "Changed",
-                "value": true,
-                "children": []
-            }
+            "key": "test1",
+            "type": "Changed",
+            "value": true,
+            "children": []
         },
         "Added": {
-            "test1": {
-                "action": "Added",
-                "value": "true",
-                "children": []
-            }
+            "key": "test1",
+            "type": "Added",
+            "value": "true",
+            "children": []
         }
     },
     {
         "Changed": {
-            "test2": {
-                "action": "Changed",
-                "value": null,
-                "children": []
-            }
+            "key": "test2",
+            "type": "Changed",
+            "value": null,
+            "children": []
         },
         "Added": {
-            "test2": {
-                "action": "Added",
-                "value": 0,
-                "children": []
-            }
+            "key": "test2",
+            "type": "Added",
+            "value": 0,
+            "children": []
         }
     },
     {
         "Changed": {
-            "test3": {
-                "action": "Changed",
-                "value": 0,
-                "children": []
-            }
+            "key": "test3",
+            "type": "Changed",
+            "value": 0,
+            "children": []
         },
         "Added": {
-            "test3": {
-                "action": "Added",
-                "value": "0",
-                "children": []
-            }
+            "key": "test3",
+            "type": "Added",
+            "value": "0",
+            "children": []
         }
     }
 ]

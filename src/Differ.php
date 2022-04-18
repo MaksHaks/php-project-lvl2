@@ -2,9 +2,9 @@
 
 namespace Differ\Differ;
 
+use Exception;
+
 use function Differ\Parser\parse;
-use function Differ\Parser\readFile;
-use function Differ\Parser\getExtension;
 use function Differ\Formatters\render;
 use function Functional\sort;
 
@@ -45,9 +45,9 @@ function findDiff(array $firstFile, array $secondFile): array
             }
         } elseif (array_key_exists($key, $firstFile)) {
             if (is_array($firstFile[$key])) {
-                $node = generateNode($key, 'Changed', '', normalizeNode($firstFile[$key]));
+                $node = generateNode($key, 'Deleted', '', normalizeNode($firstFile[$key]));
             } else {
-                $node = generateNode($key, 'Changed', $firstFile[$key]);
+                $node = generateNode($key, 'Deleted', $firstFile[$key]);
             }
         } else {
             if (is_array($secondFile[$key])) {
@@ -62,24 +62,37 @@ function findDiff(array $firstFile, array $secondFile): array
     return $difference;
 }
 
-function generateNode(string $key, string $action, mixed $value, array $children = []): array
+function generateNode(string $key, string $type, mixed $value, array $children = []): array
 {
-    $nodeContent = ["action" => $action, "value" => $value, "children" => $children];
-    $node = [$key => $nodeContent];
-    return $node;
+    return ["key" => $key, "type" => $type, "value" => $value, "children" => $children];
 }
 
 function normalizeNode(array $node)
 {
     $nodeKeys = sort(array_keys($node), fn (string $left, string $right) => strcmp($left, $right));
     $finalNode = array_map(function ($nodeKey) use ($node) {
-        $action = 'Unchanged';
+        $type = 'Unchanged';
         $value = (!is_array($node[$nodeKey])) ? $node[$nodeKey] : '';
         $key = $nodeKey;
         $children = (!is_array($node[$nodeKey])) ? [] : normalizeNode($node[$nodeKey]);
-        $nodeContent = ["action" => $action, "value" => $value, "children" => $children];
-        $normalizedNode = [$key => $nodeContent];
-        return $normalizedNode;
+        return ["key" => $key, "type" => $type, "value" => $value, "children" => $children];
     }, $nodeKeys);
     return $finalNode;
+}
+
+function readFile(string $path)
+{
+    if (!file_exists($path)) {
+        throw new Exception("Invalid file path: {$path}");
+    }
+    $fileContent = file_get_contents($path);
+    if ($fileContent === false) {
+        throw new Exception("Can't read file: {$path}");
+    }
+    return $fileContent;
+}
+
+function getExtension(string $path)
+{
+    return pathinfo($path, PATHINFO_EXTENSION);
 }

@@ -18,20 +18,3 @@ function parse(string $content, string $type): array
             throw new Exception("Format {$type} not supported.");
     }
 }
-
-function readFile(string $path)
-{
-    if (!file_exists($path)) {
-        throw new Exception("Invalid file path: {$path}");
-    }
-    $fileContent = file_get_contents($path);
-    if ($fileContent === false) {
-        throw new Exception("Can't read file: {$path}");
-    }
-    return $fileContent;
-}
-
-function getExtension(string $path)
-{
-    return pathinfo($path, PATHINFO_EXTENSION);
-}

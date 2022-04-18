@@ -18,10 +18,10 @@ function makeStylishFormat(array $diff, int $depth = 1)
     $formatedDiff = array_map(function ($element) use ($depth) {
 
         if (!array_key_exists("Changed", $element)) {
-            $key = array_key_first($element);
-            $value = normalizeValue($element[$key]["value"]);
-            $action = normalizeAction($element[$key]["action"]);
-            $children = $element[$key]["children"];
+            $key = $element['key'];
+            $value = normalizeValue($element["value"]);
+            $type = normalizeType($element["type"]);
+            $children = $element["children"];
             $currentTab = str_repeat(' ', ($depth * TAB - SYMBOLS_SPACE));
 
             if ($children !== []) {
@@ -30,7 +30,7 @@ function makeStylishFormat(array $diff, int $depth = 1)
             } else {
                 $childrens = '';
             }
-            return "{$currentTab}{$action} {$key}: {$value}{$childrens}\n";
+            return "{$currentTab}{$type} {$key}: {$value}{$childrens}\n";
         } else {
             return makeStylishFormat($element, $depth);
         }
@@ -38,34 +38,32 @@ function makeStylishFormat(array $diff, int $depth = 1)
     return implode($formatedDiff);
 }
 
-function normalizeAction(string $action): string
+function normalizeType(string $type): string
 {
-    switch ($action) {
+    switch ($type) {
         case 'Changed':
-            $normalizedAction = '-';
-            break;
+            return '-';
+        case 'Deleted':
+            return '-';
         case 'Unchanged':
-            $normalizedAction = ' ';
-            break;
+            return ' ';
         case 'Added':
-            $normalizedAction = '+';
-            break;
+            return '+';
         default:
-            throw new Exception('Undefined action');
+            throw new Exception('Undefined type');
     }
-
-    return $normalizedAction;
 }
 
 function normalizeValue(mixed $value)
 {
     if ($value === true) {
         return 'true';
-    } elseif ($value === false) {
+    }
+    if ($value === false) {
         return 'false';
-    } elseif ($value === null) {
+    }
+    if ($value === null) {
         return 'null';
-    } else {
-        return $value;
-    };
+    }
+    return $value;
 }
